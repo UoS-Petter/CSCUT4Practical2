@@ -1,9 +1,5 @@
 import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
-import javax.swing.*;
-import java.lang.Number;
 
 /**
  * 
@@ -12,29 +8,49 @@ import java.lang.Number;
  */
 public class Reader {
 
+	// Constants for readability
 	final private String FAIL_NOT_LOADED = "File not loaded.";
 	final private String FAIL_IS_DIR = "Enter the path to a valid .txt file";
 	final private String FAIL_NOT_EXIST = "Could not find file specified.";
 	final private String FAIL_READING = "Error reading file.";
 
-	private String inputPath;
-	private boolean loaded;
-	private boolean read;
-	private String failReason;
+	final private String NO_FAIL = "File was loaded succesfully.";
+	final public String NO_NEXT_LINE = "No next line to read.";
 
-	private File inputFile;
-	private Scanner inputScan;
+	private String inputPath; // Input path currently used
+	private String failReason; // Reason why loading/reading failed
 
+	private boolean loaded; // Is a file loaded
+
+	private File inputFile; // File variable to store input file
+	private Scanner inputScan; // Scanner to read line by line
+
+	/**
+	 * Reader constructor. Automatically attempts to load file specified
+	 *
+	 * @param inputPath Path to .txt file to read from
+	 */
 	public Reader(String inputPath) {
 		setPath(inputPath);
+		tryLoadFile();
 	}
 
+	/**
+	 * Update/set the path to .txt to read from
+	 *
+	 * @param newPath Path to .txt file to read from
+	 */
 	public void setPath(String newPath) {
 		this.inputPath = newPath;
 		this.loaded = false;
 		this.failReason = FAIL_NOT_LOADED;
 	}
 
+	/**
+	 * Check if file is valid and set up a Scanner to read it
+	 *
+	 * @return true is successful, false otherwise
+	 */
 	public boolean tryLoadFile() {
 
 		inputFile = new File(inputPath);
@@ -57,28 +73,14 @@ public class Reader {
 		return loaded;
 	}
 
-	private boolean readFile() {
-
-		if (isLoaded()) {
-			try {
-
-				inputScan = new Scanner(inputFile);
-				read = true;
-				return true;
-
-			} catch (IOException e) {
-
-				loaded = false;
-				read = false;
-				failReason = FAIL_READING;
-			}
-		}
-		return false;
-	}
-
+	/**
+	 * Check if a file is read and if the scanner has input left to read
+	 *
+	 * @return true if there is input to read, false otherwise
+	 */
 	public boolean hasNextLine() {
 
-		if (read && loaded && inputScan.hasNextLine()) {
+		if (loaded && inputScan.hasNextLine()) {
 			return true;
 		}
 
@@ -86,10 +88,9 @@ public class Reader {
 	}
 
 	/**
-	 * Example
+	 * Check if there is input to read and return it.
 	 *
-	 * @param ex desc
-	 * @return example
+	 * @return the next line to read, or error message otherwise
 	 */
 	public String getNextLine() {
 
@@ -98,15 +99,43 @@ public class Reader {
 		}
 
 		else
-			return "No next line to read.";
+			return NO_NEXT_LINE;
 	}
 
+	/**
+	 * Is input loaded from path specified
+	 *
+	 * @return true or false
+	 */
 	public boolean isLoaded() {
 		return this.loaded;
 	}
 
+	/**
+	 * Check why loading failed, assuming it did
+	 *
+	 * @return a string with reason for failure
+	 */
 	public String getFailReason() {
-		return failReason;
+		if (loaded = false) {
+			return failReason;
+		} else
+			return NO_FAIL;
+	}
+
+	private void readFile() {
+
+		if (isLoaded()) {
+			try {
+
+				inputScan = new Scanner(inputFile);
+
+			} catch (IOException e) {
+
+				loaded = false;
+				failReason = FAIL_READING;
+			}
+		}
 	}
 
 }

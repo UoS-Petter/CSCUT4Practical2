@@ -8,6 +8,7 @@ import java.lang.Number;
 /**
  * 
  * CSCU9T4 Java strings and files exercise.
+ * @author Petter Sandas 2021
  *
  */
 public class FilesInOut {
@@ -17,15 +18,16 @@ public class FilesInOut {
 
 	public static void main(String[] args) {
 
-		File inputFolder = new File(INPUT_PATH);
-		File inputFile = new File(INPUT_PATH + "hello.txt");
-
 		Reader inputProcess = new Reader(INPUT_PATH);
+		Writer outputProcess = new Writer(OUTPUT_PATH);
 
-		if (inputProcess.tryLoadFile()) {
+		if (inputProcess.isLoaded() && outputProcess.isLoaded()) {
 			while (inputProcess.hasNextLine()) {
-				System.out.println(inputProcess.getNextLine());
+				String nextThing = inputProcess.getNextLine();
+				//System.out.println(nextThing);
+				outputProcess.addLine(nextThing);
 			}
+			outputProcess.commitChanges();
 		} else {
 			System.out.println(inputProcess.getFailReason());
 		}

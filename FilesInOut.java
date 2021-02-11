@@ -1,30 +1,27 @@
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import java.lang.Number;
+
 
 /**
  * 
  * CSCU9T4 Java strings and files exercise.
+ * 
  * @author Petter Sandas 2021
  *
  */
 public class FilesInOut {
 
-	final static String INPUT_PATH = "/Users/Petter/Desktop/Test/test.txt";
-	final static String OUTPUT_PATH = "/Users/Petter/Desktop/Test/testoutput.txt";
+	final static String INPUT_PATH = "/Users/Petter/Desktop/Test/input.txt";
+	final static String OUTPUT_PATH = "/Users/Petter/Desktop/Test/inputm.txt";
 
 	public static void main(String[] args) {
 
 		Reader inputProcess = new Reader(INPUT_PATH);
 		Writer outputProcess = new Writer(OUTPUT_PATH);
+		Formatter format = new Formatter();
 
 		if (inputProcess.isLoaded() && outputProcess.isLoaded()) {
 			while (inputProcess.hasNextLine()) {
-				String nextThing = inputProcess.getNextLine();
-				//System.out.println(nextThing);
+				String nextThing = format.formatString(inputProcess.getNextLine());
+				// System.out.println(nextThing);
 				outputProcess.addLine(nextThing);
 			}
 			outputProcess.commitChanges();

@@ -84,6 +84,7 @@ public class Reader {
 			return true;
 		}
 
+		inputScan.close();
 		return false;
 	}
 
@@ -99,6 +100,7 @@ public class Reader {
 		}
 
 		else
+			inputScan.close();
 			return NO_NEXT_LINE;
 	}
 
@@ -117,7 +119,7 @@ public class Reader {
 	 * @return a string with reason for failure
 	 */
 	public String getFailReason() {
-		if (loaded = false) {
+		if (!isLoaded()) {
 			return failReason;
 		} else
 			return NO_FAIL;

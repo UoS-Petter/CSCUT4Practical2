@@ -12,7 +12,7 @@ public class Writer {
 	// Constants for readability
 	final private String FAIL_NOT_LOADED = "File not loaded.";
 	final private String FAIL_IS_DIR = "Enter the path to a valid .txt file";
-	final private String FAIL_NOT_EXIST = "Could not find file specified.";
+	final private String FAIL_EXIST = "File already exists.";
 	final private String FAIL_READING = "Error reading file.";
 	final private String NO_FAIL = "File was loaded succesfully.";
 
@@ -56,16 +56,22 @@ public class Writer {
 		outputFile = new File(outputPath);
 		loaded = true;
 
-		if (!outputFile.exists()) {
+		if (outputFile.exists()) {
 
-			loaded = false;
-			failReason = FAIL_NOT_EXIST;
+			// check if want to overwrite
+			if (!overwrite()) {
+				loaded = false;
+				failReason = FAIL_EXIST;
+			}
+
 		}
 
-		else if (outputFile.isDirectory()) {
+		if (outputFile.isDirectory()) {
 			loaded = false;
 			failReason = FAIL_IS_DIR;
-		} else {
+		}
+
+		if (loaded) {
 			open();
 		}
 
@@ -129,5 +135,20 @@ public class Writer {
 			loaded = false;
 			failReason = FAIL_READING;
 		}
+	}
+
+	private boolean overwrite() {
+
+		String string = FilesInOut.requestInput("File already exists. Overwrite? (y/n)");
+		string = string.toLowerCase();
+
+		while ((!string.equals("y")) && (!string.equals("n"))) {
+			string = FilesInOut.requestInput("Invalid response. Type y or n.");
+		}
+		if (string.equals("y")) {
+			return true;
+		}
+		return false;
+
 	}
 }

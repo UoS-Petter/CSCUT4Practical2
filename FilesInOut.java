@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 /**
  * 
@@ -9,42 +9,71 @@
  */
 public class FilesInOut {
 
-	final static String INPUT_PATH = "/Users/Petter/Desktop/Test/input.txt";
-	final static String OUTPUT_PATH = "/Users/Petter/Desktop/Test/inputm.txt";
-
 	public static void main(String[] args) {
 
-		Reader inputProcess = new Reader(INPUT_PATH);
-		Writer outputProcess = new Writer(OUTPUT_PATH);
-		Formatter format = new Formatter();
+		/*
+		 * 
+		 * To run (this works in Terminal)
+		 * java -jar testing23.jar inputpath outputpath
+		 * 
+		 */
+		
+		//java -jar testing23.jar /Users/Petter/Desktop/Test/input.txt /Users/Petter/Desktop/Test/inputm.txt
+		
+		String inputPath = "/Users/Petter/Desktop/Test/input.txt";
+		String outputPath = "/Users/Petter/Desktop/Test/inputm.txt";
 
-		if (inputProcess.isLoaded() && outputProcess.isLoaded()) {
-			while (inputProcess.hasNextLine()) {
-				String nextThing = format.formatString(inputProcess.getNextLine());
-				// System.out.println(nextThing);
-				outputProcess.addLine(nextThing);
+		if (args.length >= 2) {
+
+
+			if(args[1].equals("-u") && args.length==3) {
+			
 			}
-			outputProcess.commitChanges();
-		} else {
-			System.out.println(inputProcess.getFailReason());
+			else if(args.length==2) {
+				
+			}
+			
+			
+			
+			inputPath = args[0];
+			outputPath = args[1];
+
+			Reader inputProcess = new Reader(inputPath);
+			Writer outputProcess = new Writer(outputPath);
+			Formatter format = new Formatter();
+
+			if (inputProcess.isLoaded() && outputProcess.isLoaded()) {
+				while (inputProcess.hasNextLine()) {
+					String nextThing = format.formatString(inputProcess.getNextLine());
+					// System.out.println(nextThing);
+					outputProcess.addLine(nextThing);
+				}
+				outputProcess.commitChanges();
+			} else {
+				System.out.println(inputProcess.getFailReason());
+			}
 		}
-
-		// Replace this with statements to set the file name (input) and file name
-		// (output).
-		// Initially it will be easier to hardcode suitable file names. test.
-
-		// Set up a new Scanner to read the input file.
-		// Processing line by line would be sensible here.
-		// Initially, echo the text to System.out to check you are reading correctly.
-		// Then add code to modify the text to the output format.
-
-		// Set up a new PrintWriter to write the output file.
-		// Add suitable code into the above processing (because you need to do this line
-		// by line also.
-		// That is, read a line, write a line, loop.
-
-		// Finally, add code to read the filenames as arguments from the command line.
+		
+		else System.out.println("Invalid arguments");
 
 	} // main
-
+	
+	public static String requestInput(String prompt) {
+		
+	    Scanner inputRead = new Scanner(System.in);  // Create a Scanner object
+	    String response;
+	    
+	    System.out.println(prompt);
+	    
+	    while(!inputRead.hasNextLine()) {
+	    }
+	    
+	    response = inputRead.nextLine();
+	    
+	    inputRead.close();
+		return response;
+		
+	}
+	
+	
 } // FilesInOut

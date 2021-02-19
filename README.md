@@ -1,5 +1,10 @@
 # CSCUT4Practical2
-The starter code for practical exercise 2
 
-This project is not specific to any IDE nor dependency management.  
-It is just the bare .java file and some test csv files. You are free to use any IDE of your choice.
+	/*
+	 * 
+	 * To run (this works in Terminal) java -jar [file].jar inputpath outputpath
+	 * The program will also ask for input / output if you prefer.
+	 * 
+	 */
+   
+   A .jar file is attached, but the program should also run fine in Eclipse.

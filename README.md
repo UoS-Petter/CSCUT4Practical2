@@ -2,7 +2,7 @@
 
 	/*
 	 * 
-	 * To run (this works in Terminal) java -jar [file].jar inputpath outputpath
+	 * To run (this works in Terminal) java -jar [file].jar [-u] inputpath outputpath
 	 * The program will also ask for input / output if you prefer.
 	 * 
 	 */

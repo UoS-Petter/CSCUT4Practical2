@@ -13,6 +13,7 @@ public class Writer {
 	final private String FAIL_NOT_LOADED = "File not loaded.";
 	final private String FAIL_IS_DIR = "Enter the path to a valid .txt file";
 	final private String FAIL_EXIST = "File already exists.";
+	final private String PARENT_NOT_EXIST = "Target directory does not exist.";
 	final private String FAIL_READING = "Error reading file.";
 	final private String NO_FAIL = "File was loaded succesfully.";
 
@@ -66,6 +67,13 @@ public class Writer {
 
 		}
 
+		if (outputFile.getParent() == null) {
+
+			loaded = false;
+			failReason = PARENT_NOT_EXIST;
+
+		}
+
 		if (outputFile.isDirectory()) {
 			loaded = false;
 			failReason = FAIL_IS_DIR;
@@ -111,7 +119,7 @@ public class Writer {
 	 * @return a string with reason for failure
 	 */
 	public String getFailReason() {
-		if (loaded = false) {
+		if (!loaded) {
 			return failReason;
 		} else
 			return NO_FAIL;
